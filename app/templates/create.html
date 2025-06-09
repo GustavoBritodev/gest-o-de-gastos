@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Nova Simulação</h2>
+
+<form method="post" class="row g-3">
+
+  <div class="col-12">
+    <label>Nome da simulação</label>
+    <input type="text" name="nome" class="form-control" required>
+  </div>
+
+  <hr>
+  <h5>Despesas</h5>
+  <div id="despesas-container"></div>
+  <button type="button" class="btn btn-outline-primary btn-sm mb-3" onclick="adicionarDespesa()">+ Adicionar Despesa</button>
+
+  <hr>
+  <h5>Investimentos</h5>
+  <div id="investimentos-container"></div>
+  <button type="button" class="btn btn-outline-primary btn-sm mb-3" onclick="adicionarInvestimento()">+ Adicionar Investimento</button>
+
+  <div class="col-12 mt-3">
+    <button type="submit" class="btn btn-primary">Calcular</button>
+    <a href="{{ url_for('index') }}" class="btn btn-secondary">Voltar</a>
+  </div>
+</form>
+
+<script>
+  let despesaCount = 0;
+  function adicionarDespesa() {
+    const container = document.getElementById('despesas-container');
+    const index = despesaCount++;
+    container.insertAdjacentHTML('beforeend', `
+      <div class="row mb-2">
+        <div class="col-md-6">
+          <input type="number" name="despesa_valor_${index}" class="form-control" placeholder="Valor da despesa" step="0.01" required>
+        </div>
+        <div class="col-md-6">
+          <input type="number" name="despesa_peso_${index}" class="form-control" placeholder="Peso (1 a 5)" min="1" max="5" required>
+        </div>
+      </div>
+    `);
+  }
+
+  let investimentoCount = 0;
+  function adicionarInvestimento() {
+    const container = document.getElementById('investimentos-container');
+    const index = investimentoCount++;
+    container.insertAdjacentHTML('beforeend', `
+      <div class="row mb-2">
+        <div class="col-md-4">
+          <input type="number" name="investimento_valor_${index}" class="form-control" placeholder="Valor investido" step="0.01" required>
+        </div>
+        <div class="col-md-4">
+          <input type="number" name="investimento_taxa_${index}" class="form-control" placeholder="Taxa (%)" step="0.01" required>
+        </div>
+        <div class="col-md-4">
+          <input type="number" name="investimento_tempo_${index}" class="form-control" placeholder="Tempo (meses)" required>
+        </div>
+      </div>
+    `);
+  }
+
+  // Adiciona um campo inicial por padrão
+  adicionarDespesa();
+  adicionarInvestimento();
+</script>
+{% endblock %}

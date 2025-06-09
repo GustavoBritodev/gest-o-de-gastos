@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Atualizar informações</h1>
+<form method="POST">
+    <div class="form-group">
+        <label for="name">Nome</label>
+        <input type="text" class="form-control" id="name" name="name" value="{{ item.name }}" required>
+    </div>
+    <div class="form-group">
+        <label for="description">Descrição</label>
+        <input type="text" class="form-control" id="description" name="description" value="{{ item.description }}">
+    </div>
+    <button type="submit" class="btn btn-success">Atualizar</button>
+</form>
+{% endblock %}

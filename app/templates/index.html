@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Estimativas Financeiras</h1>
+<a href="{{ url_for('create') }}" class="btn btn-success">Nova Estimativa</a>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>Despesa (R$)</th>
+      <th>Peso</th>
+      <th>Investimento</th>
+      <th>Juros (%)</th>
+      <th>Meses</th>
+      <th>Salário Ideal (R$)</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for d in dados %}
+    <tr>
+      <td>{{ d.nome }}</td>
+      <td>{{ d.despesa_valor }}</td>
+      <td>{{ d.despesa_peso }}</td>
+      <td>{{ d.investimento_valor }}</td>
+      <td>{{ d.investimento_taxa }}</td>
+      <td>{{ d.investimento_tempo }}</td>
+      <td>
+            R$ {{ d.salario_ideal }}
+            <br><small class="text-muted">Diário: R$ {{ (d.salario_ideal / 30) | round(2) }}</small>
+            <br><small class="text-muted">Semanal: R$ {{ (d.salario_ideal / 4) | round(2) }}</small>
+            <br><small class="text-muted">Anual: R$ {{ (d.salario_ideal) | round(2) }}</small>
+            <h1>{{d.salario_ideal }}</h1>
+      </td>
+      <td>
+        <a href="{{ url_for('delete', id=d.id) }}" class="btn btn-danger btn-sm">Excluir</a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
+
